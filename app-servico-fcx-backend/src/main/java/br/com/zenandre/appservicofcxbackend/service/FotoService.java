@@ -21,10 +21,10 @@ public class FotoService {
 	public void excluirFoto(Foto foto) {
 		repository.delete(foto);
 	}
-	public Collection<Foto> buscaTodosUsuarios(){
+	public Collection<Foto> buscaTodasFotos(){
 		return repository.findAll();
 	}
-	public Foto buscaUsuarioPorId(Long id) {
+	public Foto buscaFotoPorId(Long id) {
 		return repository.findOne(id);
 	}
 

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,11 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-
+@Entity
+@Table(name="campanha")
 public class Campanha {
 	
 	@Id
@@ -47,10 +50,10 @@ public class Campanha {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dataHoraAtualizacao;
 	
-	@Column(name="usuario_criador")
+	@Column(name="id_usuario_criador")
 	private Usuario usuarioCriador;
 	
-	@Column(name="instituicao_criacao")
+	@Column(name="id_instituicao_criacao")
 	private Instituicao instituicaoCriacao;
 	
 	@ManyToMany
