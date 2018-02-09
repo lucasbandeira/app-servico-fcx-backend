@@ -1,6 +1,6 @@
 package br.com.zenandre.appservicofcxbackend.model;
 
-import java.awt.Image;
+import java.io.File;
 import java.sql.Blob;
 
 import javax.persistence.Column;
@@ -9,25 +9,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.joda.time.LocalDateTime;
+
 @Entity
-@Table(name="foto")
-public class Foto {
-	
+@Table(name="anexo")
+public class Anexo {
+
 	@Id
-	@SequenceGenerator(name="seq_id_foto",initialValue=1,sequenceName="seq_id_foto")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_id_foto")
+	@SequenceGenerator(name="seq_id_anexo",initialValue=1,sequenceName="seq_id_anexo")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_id_anexo")
 	private Long id;
-	
-	@Column(length=200)
 	private String descricao;
 	
+	@Column(name="nome_anexo")
+	private String nomeAnexo;
+	
 	@Lob
-	private Blob imagem;
+	private Blob arquivo;
+	
+		
+	private LocalDateTime dataInclusao;
 	
 	
+	public LocalDateTime getDataInclusao() {
+		return dataInclusao;
+	}
+	public void setDataInclusao(LocalDateTime dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -40,11 +53,17 @@ public class Foto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Blob getImagem() {
-		return imagem;
+	public String getNomeAnexo() {
+		return nomeAnexo;
 	}
-	public void setImagem(Blob imagem) {
-		this.imagem = imagem;
+	public void setNomeAnexo(String nomeAnexo) {
+		this.nomeAnexo = nomeAnexo;
+	}
+	public Blob getArquivo() {
+		return arquivo;
+	}
+	public void setArquivo(Blob arquivo) {
+		this.arquivo = arquivo;
 	}
 	@Override
 	public int hashCode() {
@@ -61,7 +80,7 @@ public class Foto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Foto other = (Foto) obj;
+		Anexo other = (Anexo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -71,5 +90,4 @@ public class Foto {
 	}
 	
 	
-
 }

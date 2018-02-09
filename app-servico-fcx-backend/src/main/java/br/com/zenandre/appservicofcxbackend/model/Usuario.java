@@ -1,21 +1,54 @@
 package br.com.zenandre.appservicofcxbackend.model;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 @Entity
 @Table(name="usuario")
 public class Usuario {
 	
+	@Id
+	@SequenceGenerator(name="seq_id_usuario",initialValue=1,sequenceName="seq_id_usuario")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_id_usuario")
 	private Integer id;
+	
+	@Column(name="login",nullable=false, unique=true)
 	private String login;
+	
+	@Column(name="senha",nullable=false, unique=true)
 	private String senha;
+	
+	@Column(name="email",nullable=false, unique=true)
 	private String email;
+	
 	private boolean ativo;
-	private ArrayList<Perfil> perfis;
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Collection<Perfil> perfis;
+	
 	private String nome;
+	
+	@Column(name="data_cadastro")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dataCadastro;
+	
 	
 	
 	public String getNome() {
@@ -54,7 +87,7 @@ public class Usuario {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	public ArrayList<Perfil> getPerfis() {
+	public Collection<Perfil> getPerfis() {
 		return perfis;
 	}
 	public void setPerfis(ArrayList<Perfil> perfis) {
